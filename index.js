@@ -3,12 +3,18 @@ const mongoose = require("mongoose");
 const express = require("express");
 const dotenv = require("dotenv");
 dotenv.config();
+ 
+
 mongoose
-  .connect(
-    "mongodb+srv://swethak:Swetha240@cluster0.1xjubpd.mongodb.net/Netflix-clone?retryWrites=true&w=majority"
-  )
-  .then((con) => console.log("data connection established"))
-  .catch((err) => console.log("failed", err));
+  .connect(process.env.MONGO_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    
+  })
+  .then(() => console.log("DB Connection Successfull"))
+  .catch((err) => {
+    console.error(err);
+  });
 mongoose.set("strictQuery", false);
 const app = express();
 app.use(express.json());
